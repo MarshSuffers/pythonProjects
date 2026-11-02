@@ -6,13 +6,23 @@ word = random.choice(word_bank)
 
 characters = list(word)
 
-previous_guesses = []
+new_guess = True
+
+previous_guesses = ["a","b"]
 
 current_guess = input("Guess a letter:")
 
-for i in characters:
+def isGuessNew():
     for i in previous_guesses:
+        global new_guess
         if i == current_guess:
-            print("You've already tried that letter")
+            print("You've already tried that letter.")
+            new_guess = False
+            break
         else:
             previous_guesses.append(current_guess)
+            new_guess = True
+    print(new_guess)
+    print(previous_guesses)
+
+isGuessNew()
