@@ -102,6 +102,3 @@ while game_over() != True:
     print(f"You've made {wrong_moves} wrong moves. If you make 6, you lose!")
     print(f"Turn: {turn}")
     print(f"Guessed characters: {guess_list}")
-    print(len(guess))
-
-
