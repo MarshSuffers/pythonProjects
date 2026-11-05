@@ -12,77 +12,96 @@ unacceptable_guesses = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "`", "
 
 word = random.choice(word_bank)
 
-lives_left = 6
+wrong_moves = 0
 
-correct = false
+correct = False
 
 turn = 0
 
 #Creating Classes
 
 class Character:
-    def __init__(self, display, position, char):
+    def __init__(self, display, char):
         self.display = display
-        self.position = position
         self.char = char
 
     def __str__(self) -> str:
-        return f"{self.char} is in position {self.position}, and display is set to {self.display}."
+        return f"{self.char} display = {self.display}."
 
 #Filling Character List
 
 for i in list(word):
     dis = False
-    pos = list(word).index(i)
     ch = i
-    character = Character(dis, pos, ch)
+    character = Character(dis, ch)
     character_list.append(character)
-
-for i in character_list:
-    print(i)
 
 #Creating Functions
 def is_guess_acceptable():
-    if len(guess) > 1:
-        print("Guess a *letter*")
-    else:
-        for i in unacceptable_guesses:
-            if guess == i:
-                print("Guess a *letter*")
-                break
-            else:
-                for i in guess_list:
-                    if guess == i:
-                        print("You've already guessed that letter!")
-                    else:
-                        guess_list.append(guess)
-                        return True
+    for i in unacceptable_guesses:
+        if i == guess:
+            return False
+    for i in guess_list:
+        if i == guess:
+            return False
+    if len(guess) >= 2:
+        return False
+    guess_list.append(guess)
 
 
 def is_guess_correct():
-    correct = False
-    global lives_left
+    mybool = False
     for i in character_list:
-        if guess == i:
+        if guess == i.char:
             i.display = True
-            correct = True
-        else:
-            lives_left = lives_left - 1
+            print(i)
+            mybool = True
+    if mybool == True:
+        return True
+        
 
 def display_word():
     for i in character_list:
         if i.display == True :
-            print(i.char)
-        else:
-            print("_", end=(""))
+            print(i.char, end="")
+        elif i.display == False:
+            print("_", end="")
+
+def game_over():
+    count = 0
+    for i in character_list:
+        if i.display == True:
+            count = count + 1
+    if count == len(word):
+        print("You win!")
+        print(f"You won in {turn} turns!")
+        print(f"You guessed these letters: {guess_list} ")
+        return True
+    if wrong_moves >= 6:
+        print("You lose!")
+        print(f"{word} was the word!")
+        return True
 
 #Starting Game
 print("HANGMAN")
 print("")
 
-display_word()
+while game_over() != True:
+    display_word()
+    guess = input(" Guess a letter: ")
+    guess = guess.lower()
+    if is_guess_acceptable() != False and is_guess_correct() == True:
+        print("Your letter is in the word!")
+    elif is_guess_acceptable() == False:
+        print("Guess a *single letter* that you *have not guessed before*")
+    elif is_guess_correct() != True:
+        print("Your letter is not in the word")
+        wrong_moves = wrong_moves + 1
+    else: print("Guess a *single letter* that you *have not guessed before*")
+    turn = turn + 1
+    print(f"You've made {wrong_moves} wrong moves. If you make 6, you lose!")
+    print(f"Turn: {turn}")
+    print(f"Guessed characters: {guess_list}")
+    print(len(guess))
 
-guess = input(" Guess a letter:")
 
-#testing area
-is_guess_acceptable()
