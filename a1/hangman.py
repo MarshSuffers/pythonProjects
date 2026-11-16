@@ -46,7 +46,6 @@ def is_guess_acceptable():
             return False
     if len(guess) >= 2:
         return False
-    guess_list.append(guess)
 
 
 def is_guess_correct():
@@ -98,7 +97,9 @@ while game_over() != True:
         print("Your letter is not in the word")
         wrong_moves = wrong_moves + 1
     else: print("Guess a *single letter* that you *have not guessed before*")
-    turn = turn + 1
+    turn = turn + 1 
+    guess_list.append(guess)
+
     print(f"You've made {wrong_moves} wrong moves. If you make 6, you lose!")
     print(f"Turn: {turn}")
     print(f"Guessed characters: {guess_list}")
