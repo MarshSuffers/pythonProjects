@@ -33,6 +33,12 @@ if is_message_acceptable() == False:
     quit()
 
 shift = input("How big do you want your shift to be? ")
+try:
+    int(shift)
+except ValueError:
+    print("Write an *integer* next time.")
+    quit()
+
 shiftInt = int(shift)
 
 if is_shift_acceptable() == False:
