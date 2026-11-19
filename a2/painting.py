@@ -9,11 +9,11 @@ screen = turtle.Screen()
 Tim.hideturtle()
 Tim.speed(0)
 
-screen.setup(500, 500, -700, 100)
+screen.setup(700, 700, -700, 100)
 
 screen.colormode(255)
 
-y_counter = -200
+y_counter = -225
 
 #Setup functions
 
@@ -27,22 +27,22 @@ def change_color():
     B = random.randint(0, 255)
 
 def draw_dots():
-    for i in range(5):
+    for i in range(10):
         change_color()
         Tim.down()
-        Tim.dot(50, R,G,B)
+        Tim.dot(20, R,G,B)
         Tim.up()
-        Tim.fd(100)
+        Tim.fd(50)
 
 def draw():
-    for i in range(0, 5):
+    for i in range(10):
         global y_counter
         Tim.up()
-        Tim.teleport(-200, y_counter)
+        Tim.teleport(-225, y_counter)
         draw_dots()
-        y_counter = y_counter + 100
-    Tim.teleport(-200, -200)
-    y_counter = -200
+        y_counter = y_counter + 50
+    Tim.teleport(-225, -225)
+    y_counter = -225
 
 def draw_infinite():
     while True:
